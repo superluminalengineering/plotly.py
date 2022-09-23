@@ -3393,9 +3393,20 @@ Invalid property path '{key_path_str}' for layout
         -------
         None
         """
-        import plotly.io as pio
+        from datetime import datetime
+        import sys
+        import luminal_helpers
 
-        return pio.show(self, *args, **kwargs)
+        try:
+            json = self.to_json()
+            cell_id = luminal_helpers.__cell_id__
+            timestamp = datetime.utcnow().timestamp()
+            file = open("plots/{}-{}.json".format(cell_id, timestamp), "w")
+            file.write(json)
+            file.close()
+        except:
+            e = sys.exc_info()[0]
+            print('An error occurred while writing the plot to JSON: {}'.format(e))
 
     def to_json(self, *args, **kwargs):
         """
