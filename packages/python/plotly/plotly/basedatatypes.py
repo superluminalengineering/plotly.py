@@ -3395,7 +3395,7 @@ Invalid property path '{key_path_str}' for layout
         """
         from datetime import datetime
         import sys
-        import luminal_helpers
+        from . import luminal_helpers
 
         try:
             json = self.to_json()
